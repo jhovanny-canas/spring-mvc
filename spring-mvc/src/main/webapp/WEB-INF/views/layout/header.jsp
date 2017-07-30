@@ -18,7 +18,7 @@
           	
           			<ul class="dropdown-menu" role="menu">
             			<li><a href="<spring:url value="/project/add"/>">Add</a></li>
-            			<li><a href="#">Find</a></li>
+            			<li><a href='<spring:url value="/project/find"></spring:url>'>Find</a></li>
           			</ul>
           			
         		</li>
@@ -29,10 +29,11 @@
           				data-toggle="dropdown" role="button" 
           				aria-expanded="false">Resources <span class="caret"></span></a>
           		
-          			<ul class="dropdown-menu" role="menu">
-            			<li><a href="#">Add</a></li>
+          		<ul class="dropdown-menu" role="menu">
+            			<li><a href="<spring:url value="/resource/add"/>">Add</a></li>
             			<li><a href="#">Find</a></li>
           			</ul>
+
         		
         		</li>
         		
