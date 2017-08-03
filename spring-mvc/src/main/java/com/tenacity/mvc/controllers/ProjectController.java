@@ -1,14 +1,23 @@
 package com.tenacity.mvc.controllers;
 
+import java.util.ArrayList;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tenacity.mvc.data.entities.Project;
+import com.tenacity.mvc.data.entities.validators.ProjectValidator;
 import com.tenacity.mvc.services.ProjectService;
 
 @Controller
@@ -32,8 +41,15 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="/add",method =RequestMethod.GET)
-	public String addProject(){
+	public String addProject(Model model){
 		System.out.println("se invoca get methodo");
+		model.addAttribute("types", new ArrayList<String>(){{
+			add("");
+			add("Single Year");
+			add("Multi Year");
+			
+		}});
+		model.addAttribute("project", new Project());
 		return "project_add";
 	}
 
@@ -62,10 +78,22 @@ public class ProjectController {
 	*/
 
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String saveProject(@ModelAttribute Project project){
+	public String saveProject(@Valid @ModelAttribute Project project, Errors errors){
+		if(!errors.hasErrors()){
+			System.out.println("El projecto es valido");
+		}
+		else{
+			System.out.println("no se valido");
+			return "project_add";
+		}
 		System.out.println("se invoca post metodo");
 		System.out.println(project.toString());
 		return "project_add";
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder){
+		binder.addValidators(new ProjectValidator());
 	}
 
 }

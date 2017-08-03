@@ -1,15 +1,19 @@
 package com.tenacity.mvc.data.entities;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import javax.validation.constraints.NotBlank;
 
 public class Project {
 	private Long projectId;
 
 	private String name;
 
+	@NotBlank(message ="Debe proporcionar una descripcion")
 	private String description;
 
-	private String sponsor;
+	private Sponsor sponsor;
 
 	private BigDecimal authorizedHours;
 
@@ -20,6 +24,8 @@ public class Project {
 	private boolean special;
 
 	private String type;
+	
+	private List<String> pointsOfContact;
 
 	public Long getProjectId() {
 		return projectId;
@@ -71,14 +77,6 @@ public class Project {
 	}
 
 
-	public String getSponsor() {
-		return sponsor;
-	}
-
-	public void setSponsor(String sponsor) {
-		this.sponsor = sponsor;
-	}
-
 	public boolean isSpecial() {
 		return special;
 	}
@@ -94,14 +92,29 @@ public class Project {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	public Sponsor getSponsor() {
+		return sponsor;
+	}
+
+	public void setSponsor(Sponsor sponsor) {
+		this.sponsor = sponsor;
+	}
+	
+	
+	public List<String> getPointsOfContact() {
+		return pointsOfContact;
+	}
+
+	public void setPointsOfContact(List<String> pointsOfContact) {
+		this.pointsOfContact = pointsOfContact;
+	}
 
 	@Override
 	public String toString() {
 		return "Project [projectId=" + projectId + ", name=" + name + ", description=" + description + ", sponsor="
 				+ sponsor + ", authorizedHours=" + authorizedHours + ", authorizedFunds=" + authorizedFunds + ", year="
-				+ year + ", special=" + special + ", type=" + type + "]";
+				+ year + ", special=" + special + ", type=" + type + ", pointsOfContact=" + pointsOfContact + "]";
 	}
-
-
 
 }
